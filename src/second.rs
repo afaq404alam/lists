@@ -38,6 +38,10 @@ impl<T> List<T> {
     pub fn peek_mut(&mut self) -> Option<&mut T> {
         self.head.as_mut().map(|node| &mut node.elem)
     }
+
+    pub fn into_iter(self) -> IntoIter<T> {
+        IntoIter(self)
+    }
 }
 
 impl<T> Drop for List<T> {
@@ -51,12 +55,6 @@ impl<T> Drop for List<T> {
 }
 
 pub struct IntoIter<T>(List<T>);
-
-impl<T> List<T> {
-    pub fn into_iter(self) -> IntoIter<T> {
-        IntoIter(self)
-    }
-}
 
 impl<T> Iterator for IntoIter<T> {
     type Item = T;
